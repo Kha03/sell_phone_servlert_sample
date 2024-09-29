@@ -17,7 +17,7 @@ import java.io.IOException;
 /**
  * Servlet implementation class DanhSachDienThoaiNCCServlet
  */
-@WebServlet(urlPatterns = { "/listPhone" })
+@WebServlet(urlPatterns = { "/listPhone", "/listPhone/*" })
 public class DanhSachDienThoaiNCCServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EntityManagerFactory factory;
@@ -53,11 +53,11 @@ public class DanhSachDienThoaiNCCServlet extends HttpServlet {
 		String search = request.getParameter("search");
 		if (maNCC != null) {
 			filterByNCC(request, response, maNCC);
-		}
-		if (search != null) {
+		} else if (search != null) {
 			search(request, response, search);
+		} else {
+			request.setAttribute("listPhone", serviceDienThoai.getAll());
 		}
-		request.setAttribute("listPhone", serviceDienThoai.getAll());
 		request.getRequestDispatcher("views/ListPhone/index.jsp").forward(request, response);
 	}
 
@@ -74,7 +74,6 @@ public class DanhSachDienThoaiNCCServlet extends HttpServlet {
 	private void search(HttpServletRequest request, HttpServletResponse response, String search)
 			throws ServletException, IOException {
 		request.setAttribute("listPhone", serviceDienThoai.getByName(search));
-		request.getRequestDispatcher("views/ListPhone/index.jsp").forward(request, response);
 	}
 
 	private void filterByNCC(HttpServletRequest request, HttpServletResponse response, String maNCC)
@@ -84,6 +83,5 @@ public class DanhSachDienThoaiNCCServlet extends HttpServlet {
 		} else {
 			request.setAttribute("listPhone", serviceDienThoai.getAll());
 		}
-		request.getRequestDispatcher("views/ListPhone/index.jsp").forward(request, response);
 	}
 }

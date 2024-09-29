@@ -18,15 +18,9 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/style.css">
-
-<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
 </head>
 <body>
 	<header id="header" class="header"></header>
-	<script>
-		load("#header",
-				`${pageContext.request.contextPath}/views/templates/header.jsp`);
-	</script>
 	<!--  Main-->
 	<div class="container mt-3">
 		<div class="row">
@@ -39,7 +33,9 @@
 		<div class="row mt-2">
 			<div class="col-2">
 				<label for="codeSupplier" class="form-label">Nhà cung cấp:</label> <select
-					class="form-select" id="codeSupplier" name="codeSupplier" required>
+					class="form-select" id="codeSupplier" name="codeSupplier" required
+					onChange="handleChangeSelection()"
+					data-context-path="${pageContext.request.contextPath}">
 					<option selected value="all">Tất cả</option>
 					<c:forEach var="supplier" items="${nhaCungCaps}">
 						<option value="${supplier.maNCC}"
@@ -69,5 +65,10 @@
 			</c:forEach>
 		</div>
 	</div>
+	<script src="${pageContext.request.contextPath}/assets/js/script.js"></script>
+	<script>
+		load("#header",
+				`${pageContext.request.contextPath}/views/templates/header.jsp`);
+	</script>
 </body>
 </html>
