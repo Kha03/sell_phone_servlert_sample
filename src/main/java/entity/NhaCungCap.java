@@ -10,6 +10,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "")
@@ -20,12 +23,16 @@ public class NhaCungCap {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int maNCC;
 	
+	@NotEmpty(message = "Tên nhà cung cấp không được để trống")
+	@Size(max = 240, message = "Tên điện thoại tối đa 240 ký tự")	
 	@Column(name = "TENNHACC")
 	private String tenNCC;
 	
+	@NotEmpty(message = "Địa chỉ không được để trống")
 	@Column(name = "DIACHI")
 	private String diaChi;
 	
+	@Pattern(regexp = "0[0-9]{9}", message = "Số điện thoại không hợp lệ")
 	@Column(name = "SODIENTHOAI")
 	private String soDienThoai;
 	

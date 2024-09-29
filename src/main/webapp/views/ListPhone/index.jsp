@@ -46,7 +46,7 @@
 			<!-- item phone -->
 			<div class="col-3 mt-3">
 				<div class="card">
-					<img src="../../assets/img/logo-phone.jpg" class="card-img-top"
+					<img src="../../assets/imgs/logo-phone.jpg" class="card-img-top"
 						alt="...">
 					<div class="card-body">
 						<h5 class="card-title">Samsung Galaxy S21</h5>

@@ -1,21 +1,29 @@
 package service;
 
+import java.time.Year;
 import java.util.List;
+import java.util.Set;
 
 import dao.DienThoaiDao;
 import entity.DienThoai;
 import entity.NhaCungCap;
 import impl.DienThoaiImpl;
 import jakarta.persistence.EntityManager;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 public class ServiceDienThoai {
 	private static DienThoaiDao dThoaiDao;
-	private EntityManager eManager;
-	
+	private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	Validator validator;
+
 	public ServiceDienThoai(EntityManager eManager) {
-        this.eManager = eManager;
-        dThoaiDao = new DienThoaiImpl(eManager);
+		dThoaiDao = new DienThoaiImpl(eManager);
+		validator = factory.getValidator();
 	}
+
 	public List<DienThoai> getAll() {
 		return dThoaiDao.getAll();
 	}
@@ -24,18 +32,34 @@ public class ServiceDienThoai {
 		return dThoaiDao.getById(id);
 	}
 
-	public boolean insert(String tenDT, int namSx,int maNcc, String hinhAnh) {
+	public String insert(String tenDT, Year namSx, int maNcc, String hinhAnh) {
 		NhaCungCap ncc = new NhaCungCap();
 		ncc.setMaNCC(maNcc);
-		DienThoai dt = new DienThoai(tenDT, namSx,ncc, hinhAnh);
-		return dThoaiDao.insert(dt);
+		String message = "Thêm thành công";
+		DienThoai dienThoai = new DienThoai(tenDT, namSx, ncc, hinhAnh);
+		Set<ConstraintViolation<DienThoai>> violations = validator.validate(dienThoai);
+		for (ConstraintViolation<DienThoai> violation : violations) {
+			return violation.getMessage();
+		}
+		if (!dThoaiDao.insert(dienThoai)) {
+			message = "Failde";
+		}
+		return message;
 	}
 
-	public boolean update(String tenDT, int namSx,int maNcc, String hinhAnh) {
+	public String update(String tenDT, Year namSx, int maNcc, String hinhAnh) {
 		NhaCungCap ncc = new NhaCungCap();
 		ncc.setMaNCC(maNcc);
-		DienThoai dt = new DienThoai(tenDT, namSx,ncc, hinhAnh);
-		return dThoaiDao.update(dt);
+		String message = "Cập nhật thành công";
+		DienThoai dienThoai = new DienThoai(tenDT, namSx, ncc, hinhAnh);
+		Set<ConstraintViolation<DienThoai>> violations = validator.validate(dienThoai);
+		for (ConstraintViolation<DienThoai> violation : violations) {
+			return violation.getMessage();
+		}
+		if (!dThoaiDao.update(dienThoai)) {
+			message = "Failde";
+		}
+		return message;
 	}
 
 	public boolean delete(int id) {

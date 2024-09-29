@@ -10,7 +10,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
 		<div class="container-fluid">
 			<a class="navbar-brand d-flex align-items-center" href="#"> <img
-				src="../../assets/img/logo-phone.jpg" alt="Logo" width="50"
+				src="${pageContext.request.contextPath}/assets/imgs/logo-phone.jpg" alt="Logo" width="50"
 				class="img-fluid"> <span class="ms-2">MobileMgr</span>
 			</a>
 
@@ -26,7 +26,7 @@
 					<li class="nav-item"><a class="nav-link active"
 						href="${pageContext.request.contextPath}/views/ListPhone/index.jsp">Phone List</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="${pageContext.request.contextPath}/views/AddData/index.jsp">Add Data</a></li>
+						href="${pageContext.request.contextPath}/AddData">Add Data</a></li>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/views/Manager/index.jsp">Manage
 							Phones</a></li>
 				</ul>

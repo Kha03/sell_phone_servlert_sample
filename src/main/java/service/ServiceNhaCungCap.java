@@ -1,20 +1,27 @@
 package service;
 
 import java.util.List;
+import java.util.Set;
 
 import dao.NhaCungCapDao;
 import entity.NhaCungCap;
 import impl.NhaCungCapImpl;
 import jakarta.persistence.EntityManager;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 public class ServiceNhaCungCap {
 	private static NhaCungCapDao nccDao;
-	private EntityManager eManager;
-	
+	private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	Validator validator;
+
 	public ServiceNhaCungCap(EntityManager eManager) {
-        this.eManager = eManager;
-        nccDao = new NhaCungCapImpl(eManager);
+		nccDao = new NhaCungCapImpl(eManager);
+		validator = factory.getValidator();
 	}
+
 	public List<NhaCungCap> getAll() {
 		return nccDao.getAll();
 	}
@@ -23,14 +30,30 @@ public class ServiceNhaCungCap {
 		return nccDao.getById(id);
 	}
 
-	public boolean insert(String tenNCC, String diaChi, String soDienThoai) {
+	public String insert(String tenNCC, String diaChi, String soDienThoai) {
+		String message = "Thêm thành công";
 		NhaCungCap ncc = new NhaCungCap(tenNCC, diaChi, soDienThoai);
-		return nccDao.insert(ncc);
+		Set<ConstraintViolation<NhaCungCap>> violations = validator.validate(ncc);
+		for (ConstraintViolation<NhaCungCap> violation : violations) {
+			return violation.getMessage();
+		}
+		if (!nccDao.insert(ncc)) {
+			message = "Failde";
+		}
+		return message;
 	}
 
-	public boolean update(String tenNCC, String diaChi, String soDienThoai) {
+	public String update(String tenNCC, String diaChi, String soDienThoai) {
+		String message = "";
 		NhaCungCap ncc = new NhaCungCap(tenNCC, diaChi, soDienThoai);
-		return nccDao.update(ncc);
+		Set<ConstraintViolation<NhaCungCap>> violations = validator.validate(ncc);
+		for (ConstraintViolation<NhaCungCap> violation : violations) {
+			return violation.getMessage();
+		}
+		if (!nccDao.update(ncc)) {
+			message = "Failde";
+		}
+		return message;
 	}
 
 	public boolean delete(int id) {
@@ -47,6 +70,6 @@ public class ServiceNhaCungCap {
 
 	public List<NhaCungCap> getByPhone(String phone) {
 		return nccDao.getByPhone(phone);
-	} 
+	}
 
 }

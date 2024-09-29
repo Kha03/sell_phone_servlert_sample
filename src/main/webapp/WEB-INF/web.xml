@@ -9,14 +9,4 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
- <!--  <servlet>
-    <description></description>
-    <display-name>DanhSachDienThoaiNCCServlet</display-name>
-    <servlet-name>DanhSachDienThoaiNCCServlet</servlet-name>
-    <servlet-class>controller.DanhSachDienThoaiNCCServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DanhSachDienThoaiNCCServlet</servlet-name>
-    <url-pattern>/DanhSachDienThoaiNCCServlet</url-pattern>
-  </servlet-mapping> -->
 </web-app>
