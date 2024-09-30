@@ -1,4 +1,4 @@
-const $ = document.querySelector.bind(document);
+const $ = document.querySelector.bind(document); 
 function load(selector, path) {
 	const cached = localStorage.getItem(path);
 	if (cached) {
@@ -24,3 +24,13 @@ const handleChangeSelection = () => {
 	const path = `${contextPath}/listPhone?maNCC=${code}`;
 	window.location.href = path;
 };
+
+const handleSearch =()=>{
+	let searchValue = document.getElementById('search_name').value;
+	if (searchValue !== '') {
+		const contextPath = document.getElementById('search_name').getAttribute('data-context-path');
+		const path = `${contextPath}/listPhone?search=${searchValue}`;
+		window.location.href = path;
+	}
+}
+

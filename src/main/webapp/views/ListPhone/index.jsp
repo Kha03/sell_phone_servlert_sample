@@ -26,8 +26,12 @@
 		<div class="row">
 			<div class="col-4 mx-auto d-flex align-items-center">
 				<input type="text" class="form-control"
-					placeholder="Tìm tên điện thoại ">
-				<button class="btn btn-primary ms-2">Tìm</button>
+					placeholder="Tìm tên điện thoại " id="search_name"
+					data-context-path="${pageContext.request.contextPath}"
+					<c:if test="${param.search != null }">
+                    value="${param.search}"
+                </c:if>>
+				<button class="btn btn-primary ms-2" onClick="handleSearch()">Tìm</button>
 			</div>
 		</div>
 		<div class="row mt-2">
@@ -39,7 +43,7 @@
 					<option selected value="all">Tất cả</option>
 					<c:forEach var="supplier" items="${nhaCungCaps}">
 						<option value="${supplier.maNCC}"
-							<c:if test="${param.codeSupplier != null && param.codeSupplier == supplier.maNCC}">
+							<c:if test="${param.maNCC != null && param.maNCC != 'all' &&  param.maNCC == supplier.maNCC}">
                     selected
                 </c:if>>
 							${supplier.tenNCC}</option>
