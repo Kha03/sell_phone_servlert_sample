@@ -1,9 +1,13 @@
 package controller;
 
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import java.io.File;
+import java.io.IOException;
+import java.time.Year;
+import java.util.List;
+
+import entity.NhaCungCap;
+import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,14 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import service.ServiceDienThoai;
 import service.ServiceNhaCungCap;
-
-import java.io.File;
-import java.io.IOException;
-import java.time.Year;
-import java.util.List;
-
-
-import entity.NhaCungCap;
+import utils.EntityManagerFactoryProvider;
 
 /**
  * Servlet implementation class DienThoaiFormServlet
@@ -29,9 +26,10 @@ import entity.NhaCungCap;
 @WebServlet(urlPatterns = { "/AddData" })
 public class DienThoaiFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static EntityManagerFactory factory;
 	private static ServiceDienThoai serviceDienThoai;
 	private static ServiceNhaCungCap serviceNhaCungCap;
+	
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -47,9 +45,8 @@ public class DienThoaiFormServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		super.init(config);
-		factory = Persistence.createEntityManagerFactory("trinhminhkha21091031");
-		serviceDienThoai = new ServiceDienThoai(factory.createEntityManager());
-		serviceNhaCungCap = new ServiceNhaCungCap(factory.createEntityManager());
+		serviceDienThoai = new ServiceDienThoai(EntityManagerFactoryProvider.getFactory().createEntityManager());
+		serviceNhaCungCap = new ServiceNhaCungCap(EntityManagerFactoryProvider.getFactory().createEntityManager());
 	}
 
 	/**
@@ -107,10 +104,11 @@ public class DienThoaiFormServlet extends HttpServlet {
 		String tenDienThoai = request.getParameter("phoneName");
 		int namSx = Integer.valueOf(request.getParameter("phoneYear"));
 		String ncc = request.getParameter("codeSupplier");
+		String cauHinh = request.getParameter("configPhone");
 		String uploadPath = createUploadPath();
 		Part filePart = request.getPart("phoneImage");
 		String fileName = filePart.getSubmittedFileName();
-		String message = serviceDienThoai.insert(tenDienThoai, Year.of(namSx), Integer.valueOf(ncc), fileName);
+		String message = serviceDienThoai.insert(tenDienThoai, Year.of(namSx), cauHinh,Integer.valueOf(ncc), fileName);
 		request.setAttribute("message", message);
 		request.setAttribute("statusDt", false);
 		if (message.equals("Thêm thành công")) {

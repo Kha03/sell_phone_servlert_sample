@@ -32,11 +32,11 @@ public class ServiceDienThoai {
 		return dThoaiDao.getById(id);
 	}
 
-	public String insert(String tenDT, Year namSx, int maNcc, String hinhAnh) {
+	public String insert(String tenDT, Year namSx, String cauHinh, int maNcc, String hinhAnh) {
 		NhaCungCap ncc = new NhaCungCap();
 		ncc.setMaNCC(maNcc);
 		String message = "Thêm thành công";
-		DienThoai dienThoai = new DienThoai(tenDT, namSx, ncc, hinhAnh);
+		DienThoai dienThoai = new DienThoai(tenDT, namSx, cauHinh, ncc, hinhAnh);
 		Set<ConstraintViolation<DienThoai>> violations = validator.validate(dienThoai);
 		for (ConstraintViolation<DienThoai> violation : violations) {
 			return violation.getMessage();
@@ -47,11 +47,11 @@ public class ServiceDienThoai {
 		return message;
 	}
 
-	public String update(String tenDT, Year namSx, int maNcc, String hinhAnh) {
+	public String update(int id, String tenDT, Year namSx, String cauHinh, int maNcc, String hinhAnh) {
 		NhaCungCap ncc = new NhaCungCap();
 		ncc.setMaNCC(maNcc);
 		String message = "Cập nhật thành công";
-		DienThoai dienThoai = new DienThoai(tenDT, namSx, ncc, hinhAnh);
+		DienThoai dienThoai = new DienThoai(id, tenDT, namSx, cauHinh, ncc, hinhAnh);
 		Set<ConstraintViolation<DienThoai>> violations = validator.validate(dienThoai);
 		for (ConstraintViolation<DienThoai> violation : violations) {
 			return violation.getMessage();

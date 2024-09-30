@@ -15,6 +15,7 @@ public class NhaCungCapImpl implements NhaCungCapDao {
 
 	@Override
 	public List<NhaCungCap> getAll() {
+		eManager.clear(); 
 		return eManager.createQuery("from NhaCungCap", NhaCungCap.class).getResultList();
 	}
 
@@ -42,8 +43,18 @@ public class NhaCungCapImpl implements NhaCungCapDao {
 
 	@Override
 	public boolean update(NhaCungCap ncc) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			eManager.getTransaction().begin();
+			eManager.merge(ncc);
+			eManager.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			if (eManager.getTransaction().isActive()) {
+				eManager.getTransaction().rollback();
+			}
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override

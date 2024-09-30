@@ -43,6 +43,13 @@ public class DienThoaiImpl implements DienThoaiDao {
 	public boolean update(DienThoai dt) {
 		try {
 			eManager.getTransaction().begin();
+			DienThoai exitPhone = eManager.find(DienThoai.class, dt.getId());
+
+			if (exitPhone != null) {
+				if (dt.getHinhAnh() == null || dt.getHinhAnh().isEmpty()) {
+					dt.setHinhAnh(exitPhone.getHinhAnh());
+				}
+			}
 			eManager.merge(dt);
 			eManager.getTransaction().commit();
 			return true;

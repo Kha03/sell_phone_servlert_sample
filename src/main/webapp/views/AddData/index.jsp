@@ -50,7 +50,7 @@
 				class="container tab-pane <%="formDienThoai".equals(action) || action == null ? "active" : "fade"%>">
 				<br>
 				<form action="${pageContext.request.contextPath}/AddData"
-					method="POST" enctype="multipart/form-data" autocomplete="off">
+					method="POST" enctype="multipart/form-data">
 					<input type="hidden" name="action" value="formDienThoai">
 					<div class="mb-3">
 						<label for="phoneName" class="form-label">Tên điện thoại:</label>
@@ -63,6 +63,11 @@
 							type="number" class="form-control" id="phoneYear"
 							name="phoneYear" placeholder="Nhập năm sản xuất" required
 							value="<%=request.getParameter("phoneYear") != null ? request.getParameter("phoneYear") : ""%>">
+					</div>
+					<div class="mb-3">
+						<label for="configPhone" class="form-label">Cấu hình:</label>
+						<textarea class="form-control" id="configPhone" name="configPhone"
+							placeholder="Nhập cấu hình điện thoại" required><%=request.getParameter("configPhone") != null ? request.getParameter("configPhone") : ""%></textarea>
 					</div>
 					<div class="mb-3">
 						<label for="codeSupplier" class="form-label">Nhà cung cấp:</label>

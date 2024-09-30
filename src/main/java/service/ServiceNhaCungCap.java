@@ -43,9 +43,9 @@ public class ServiceNhaCungCap {
 		return message;
 	}
 
-	public String update(String tenNCC, String diaChi, String soDienThoai) {
+	public String update(int id, String tenNCC, String diaChi, String soDienThoai) {
 		String message = "";
-		NhaCungCap ncc = new NhaCungCap(tenNCC, diaChi, soDienThoai);
+		NhaCungCap ncc = new NhaCungCap(id, tenNCC, diaChi, soDienThoai);
 		Set<ConstraintViolation<NhaCungCap>> violations = validator.validate(ncc);
 		for (ConstraintViolation<NhaCungCap> violation : violations) {
 			return violation.getMessage();

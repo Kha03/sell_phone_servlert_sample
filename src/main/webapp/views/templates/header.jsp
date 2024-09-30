@@ -24,10 +24,10 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link active"
-						href="${pageContext.request.contextPath}/views/ListPhone/index.jsp">Phone List</a></li>
+						href="${pageContext.request.contextPath}/listPhone">Phone List</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.request.contextPath}/AddData">Add Data</a></li>
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/views/Manager/index.jsp">Manage
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/managerForm">Manage
 							Phones</a></li>
 				</ul>
 			</div>

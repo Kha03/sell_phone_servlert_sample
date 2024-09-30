@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -56,9 +55,11 @@
 			<c:forEach var="phone" items="${listPhone}">
 				<div class="col-3 mt-3">
 					<div class="card">
-						<img
-							src="${pageContext.request.contextPath}/assets/imgs/${phone.hinhAnh}"
-							class="card-img-top img-fluid img-product" alt="${phone.hinhAnh}">
+						<div class="img-content">
+							<img
+								src="${pageContext.request.contextPath}/assets/imgs/${phone.hinhAnh}"
+								class="img-fluid img-product" alt="${phone.hinhAnh}">
+						</div>
 						<div class="card-body">
 							<h5 class="card-title" title="${phone.tenDT}">${phone.tenDT}</h5>
 							<p class="card-text">Năm sản xuất: ${phone.namSanXuat}</p>

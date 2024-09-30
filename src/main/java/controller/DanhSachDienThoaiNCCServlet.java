@@ -1,8 +1,8 @@
 package controller;
 
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.servlet.RequestDispatcher;
+import java.io.IOException;
+
+import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,8 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.ServiceDienThoai;
 import service.ServiceNhaCungCap;
-
-import java.io.IOException;
+import utils.EntityManagerFactoryProvider;
 
 /**
  * Servlet implementation class DanhSachDienThoaiNCCServlet
@@ -20,10 +19,8 @@ import java.io.IOException;
 @WebServlet(urlPatterns = { "/listPhone", "/listPhone/*" })
 public class DanhSachDienThoaiNCCServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private EntityManagerFactory factory;
 	private static ServiceDienThoai serviceDienThoai;
 	private static ServiceNhaCungCap serviceNhaCungCap;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -37,9 +34,8 @@ public class DanhSachDienThoaiNCCServlet extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
-		factory = Persistence.createEntityManagerFactory("trinhminhkha21091031");
-		serviceDienThoai = new ServiceDienThoai(factory.createEntityManager());
-		serviceNhaCungCap = new ServiceNhaCungCap(factory.createEntityManager());
+		serviceDienThoai = new ServiceDienThoai(EntityManagerFactoryProvider.getFactory().createEntityManager());
+		serviceNhaCungCap = new ServiceNhaCungCap(EntityManagerFactoryProvider.getFactory().createEntityManager());
 	}
 
 	/**
