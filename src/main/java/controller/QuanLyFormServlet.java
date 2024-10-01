@@ -149,12 +149,10 @@ public class QuanLyFormServlet extends HttpServlet {
 
 	private void handleFind(HttpServletRequest request, HttpServletResponse response, String find)
 			throws ServletException, IOException {
-		String decodedFind = URLDecoder.decode(find, StandardCharsets.UTF_8);
-		String[] parts = decodedFind.split(":");
+		String[] parts = find.split(":");
 		if (parts.length == 2) {
 			String searchType = parts[0];
 			String searchValue = parts[1];
-			System.out.println(searchValue);
 			switch (searchType) {
 			case "name":
 				request.setAttribute("nhaCungCaps", serviceNhaCungCap.getByName(searchValue));

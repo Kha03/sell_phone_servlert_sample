@@ -17,6 +17,7 @@ function load(selector, path) {
 			window.dispatchEvent(new Event("template-loaded"));
 		});
 }
+
 const handleChangeSelection = () => {
 	let selectedValue = document.getElementById('codeSupplier');
 	let code = selectedValue.value;
@@ -101,7 +102,7 @@ function messageOk() {
 }
 document.getElementById('searchInput').addEventListener('keypress', (event) => {
 	if (event.key === 'Enter') {
-		const searchValue = event.target.value; 
+		const searchValue = event.target.value;
 		const selectedOption = document.getElementById('searchSelect').value;
 		const contextPath = document.querySelector('[data-context-path]').dataset.contextPath;
 		const url = `${contextPath}/managerForm?find=${selectedOption}:${searchValue}`;

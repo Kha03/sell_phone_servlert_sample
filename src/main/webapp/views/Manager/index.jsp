@@ -203,5 +203,6 @@
 		load("#header",
 				`${pageContext.request.contextPath}/views/templates/header.jsp`);
 	</script>
+	<script src="${pageContext.request.contextPath}/assets/js/active.js"></script>
 </body>
 </html>
